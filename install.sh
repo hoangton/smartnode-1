@@ -51,9 +51,9 @@ _rpcPassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 ; echo '')
 # Get the IP address of your vps which will be hosting the smartnode
 _nodeIpAddress=$(curl -s 4.icanhazip.com)
 if [[ ${_nodeIpAddress} =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  external_ip_line="externalip=${_nodeIpAddress}"
+  external_ip_line="externalip=${_nodeIpAddress}:9678"
 else
-  external_ip_line="#externalip=external_IP_goes_here"
+  external_ip_line="#externalip=external_IP_goes_here:9678"
 fi
 
 # Make a new directory for smartcash daemon
