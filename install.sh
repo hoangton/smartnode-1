@@ -49,7 +49,7 @@ _rpcUserName=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 12 ; echo '')
 _rpcPassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 ; echo '')
 
 # Get the IP address of your vps which will be hosting the smartnode
-_nodeIpAddress=$(ip route get 1 | awk '{print $NF;exit}')
+# _nodeIpAddress=$(ip route get 1 | awk '{print $NF;exit}')
 
 # Make a new directory for smartcash daemon
 mkdir ~/.smartcash/
@@ -60,9 +60,9 @@ cd ~/.smartcash/
 
 # download bootstrap
 apt-get install unzip -y
-wget https://smartcash.cc/txindexstrap.zip
-unzip txindexstrap.zip
-rm txindexstrap.zip
+# wget https://smartcash.cc/txindexstrap.zip
+# unzip txindexstrap.zip
+# rm txindexstrap.zip
 
 # Create the initial smartcash.conf file
 echo "rpcuser=${_rpcUserName}
@@ -71,11 +71,9 @@ rpcallowip=127.0.0.1
 listen=1
 server=1
 daemon=1
-logtimestamps=1
 maxconnections=64
-txindex=1
 smartnode=1
-externalip=${_nodeIpAddress}:9678
+# externalip=${_nodeIpAddress}:9678
 smartnodeprivkey=${_nodePrivateKey}
 " > smartcash.conf
 cd
@@ -114,9 +112,9 @@ if ! crontab -l | grep "~/smartnode/checkdaemon.sh"; then
 fi
 
 # Create a cronjob for making sure smartcashd is always up-to-date
-if ! crontab -l | grep "~/smartnode/upgrade.sh"; then
-  (crontab -l ; echo "0 0 */1 * * ~/smartnode/upgrade.sh") | crontab -
-fi
+# if ! crontab -l | grep "~/smartnode/upgrade.sh"; then
+#  (crontab -l ; echo "0 0 */1 * * ~/smartnode/upgrade.sh") | crontab -
+# fi
 
 # Create a cronjob for clearing the log file
 if ! crontab -l | grep "~/smartnode/clearlog.sh"; then
