@@ -7,7 +7,7 @@
 3. Make sure smartcash is always up-to-date: `upgrade.sh`
 4. Clear the log file every other day: `clearlog.sh`
 
-#### On the client-side, use your node-client (formerly known as wallet) and click "create smartnode." Input your node's IP address, select a collateral TX and copy/write down your SmartNodeKey.
+#### On the client-side, use your node-client (formerly known as wallet) and click "Create Smartnode." Input an alias of your choosing, your server's IP address, select a collateral TX and copy/write down your SmartNodeKey.
 
 #### Login to your vps as root, download the install.sh file and then run it, enter the SmartNodeKey you got above when asked for SmartNode GenKey:
 ```
