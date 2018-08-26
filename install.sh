@@ -148,3 +148,7 @@ ufw --force enable
 
 # Reboot the server
 # reboot
+
+# Since we not longer reboot here, reload the SSH config to active the
+# custom port if selected
+systemctl reload sshd
