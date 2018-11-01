@@ -147,21 +147,21 @@ ufw default allow outgoing
 ufw --force enable
 
 # Create aliases for commonly use smartcash-cli commands to ~/.bash_alises
-if [ -e ~/.bash_alises ]
+if [ -e ~/.bash_aliases ]
 then
-    echo "~/.bash_alises exists, not adding additional aliases."
+    echo "~/.bash_aliases exists, not adding additional aliases."
 else
-    echo "Adding aliases for common smartcash-cli commands to ~/.bash_alises"
+    echo "Adding aliases for common smartcash-cli commands to ~/.bash_aliases"
     echo "
     alias getinfo='smartcash-cli getinfo'
     alias nodestatus='smartcash-cli smartnode status'
     alias syncstatus='smartcash-cli snsync status'
     alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
-    " > ~/.bash_alises
-    echo "getinfo for 'smartcash-cli getinfo'"
-    echo "nodestatus for 'smartcash-cli smartnode status'"
-    echo "syncstatus for 'smartcash-cli syncstatus'"
-    echo "restartnode for 'smartcash-cli stop && sleep 5 && smartcashd'"
+    " > ~/.bash_aliases
+    echo "     getinfo for 'smartcash-cli getinfo'"
+    echo "     nodestatus for 'smartcash-cli smartnode status'"
+    echo "     syncstatus for 'smartcash-cli syncstatus'"
+    echo "     restartnode for 'smartcash-cli stop && sleep 5 && smartcashd'"
 fi
 
 # Reboot the server
