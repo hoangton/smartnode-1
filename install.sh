@@ -10,15 +10,15 @@ fi
 
 while true; do
  if [ -d ~/.smartcash ]; then
-   printf "~/.smartcash/ already exists! The installer will delete this folder. Continue anyway?(Y/n)"
+   printf "~/.smartcash/ already exists! The installer will delete this folder. Continue anyway? (y/n) "
    read REPLY
-   if [ ${REPLY} == "Y" ]; then
-      pID=$(ps -ef | grep smartcashd | awk '{print $2}')
-      kill ${pID}
+   if [ ${REPLY} == "Y" ] || [ ${REPLY} == "y" ]; then
+      pID=$(ps -ef | grep smartcashd | grep -v grep | awk '{print $2}')
+      kill ${pID} > /dev/null 2>&1
       rm -rf ~/.smartcash/
       break
    else
-      if [ ${REPLY} == "n" ]; then
+      if [ ${REPLY} == "N" ] || [ ${REPLY} == "n" ]; then
         exit
       fi
    fi
@@ -149,19 +149,37 @@ ufw --force enable
 # Create aliases for commonly use smartcash-cli commands to ~/.bash_alises
 if [ -e ~/.bash_aliases ]
 then
-    echo "~/.bash_aliases exists, not adding additional aliases."
+    if grep -q "getinfo" ~/.bash_aliases
+        then
+        echo "Aliases already exist, not adding again..."
+    else
+	echo "Adding aliases for common smartcash-cli commands to ~/.bash_aliases"
+        echo "
+alias getinfo='smartcash-cli getinfo'
+alias nodestatus='smartcash-cli smartnode status'
+alias syncstatus='smartcash-cli snsync status'
+alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
+        " > ~/.bash_aliases
+        echo "     getinfo for 'smartcash-cli getinfo'"
+        echo "     nodestatus for 'smartcash-cli smartnode status'"
+        echo "     syncstatus for 'smartcash-cli syncstatus'"
+        echo "     restartnode for 'smartcash-cli stop && sleep 5 && smartcashd'"
+        echo "     Please log out/in for these changes to take effect"
+    fi
+
 else
     echo "Adding aliases for common smartcash-cli commands to ~/.bash_aliases"
     echo "
-    alias getinfo='smartcash-cli getinfo'
-    alias nodestatus='smartcash-cli smartnode status'
-    alias syncstatus='smartcash-cli snsync status'
-    alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
+alias getinfo='smartcash-cli getinfo'
+alias nodestatus='smartcash-cli smartnode status'
+alias syncstatus='smartcash-cli snsync status'
+alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
     " > ~/.bash_aliases
     echo "     getinfo for 'smartcash-cli getinfo'"
     echo "     nodestatus for 'smartcash-cli smartnode status'"
     echo "     syncstatus for 'smartcash-cli syncstatus'"
     echo "     restartnode for 'smartcash-cli stop && sleep 5 && smartcashd'"
+    echo "     Please log out/in for these changes to take effect"
 fi
 
 # Reboot the server
