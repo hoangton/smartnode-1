@@ -1,6 +1,6 @@
 #!/bin/bash
 # install.sh
-# Installs smartnode on Ubuntu 16.04 LTS x64
+# Installs SmartNodes on Ubuntu 16.04 LTS x64 and Ubuntu 18.04 LTS x64
 # ATTENTION: The anti-ddos part will disable http, https and dns ports.
 
 if [ "$(whoami)" != "root" ]; then
