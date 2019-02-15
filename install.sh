@@ -182,6 +182,19 @@ alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
     echo "     Please log out/in for these changes to take effect"
 fi
 
+# Add swap
+if free | awk '/^Swap:/ {exit !$2}'; then
+    echo "Skipping swap addition"
+else
+    echo "Attempting to add swap"
+    fallocate -l 4G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+    cp /etc/fstab /etc/fstab.bak
+    echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+fi
+
 # Reboot the server
 # reboot
 
