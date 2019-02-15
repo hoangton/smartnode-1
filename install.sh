@@ -183,7 +183,7 @@ alias restartnode='smartcash-cli stop && sleep 5 && smartcashd'
 fi
 
 # Add swap
-if free | awk '/^Swap:/ {exit !$2}'; then
+if [[ $(swapon -s | wc -l) -gt 1 ]] ; then
     echo "Skipping swap addition"
 else
     echo "Attempting to add swap"
